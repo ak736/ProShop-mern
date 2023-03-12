@@ -8,12 +8,12 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/products', (req, res) => {
-    res.json(products)
+  res.json(products)
 })
 
 app.get('/api/products/:id', (req, res) => {
-    const product = products.find(({ _id }) => _id === req.params.id);
-    res.json(product)
+  const product = products.find(({ _id }) => _id === req.params.id)
+  res.json(product)
 })
 
 app.listen(5001, console.log('Server running on port 5001'))
