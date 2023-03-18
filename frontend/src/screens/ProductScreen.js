@@ -9,8 +9,8 @@ import { getProductById } from '../services/products/ProductDetailSlice'
 
 
 const ProductScreen = () => {
-  const [qty, setQty] = useState(1)
-  const navigate = useNavigate()
+  // const [qty, setQty] = useState(1)
+  // const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
   const productDetail = useSelector((state) => state.productDetail)
@@ -34,7 +34,7 @@ const ProductScreen = () => {
         <>
           <Row>
             <Col md={6}>
-              <Image src={productInfo.image} alt={productInfo.name} fluid />
+              <Image src={productInfo?.image} alt={productInfo.name} fluid />
             </Col>
             <Col md={3}>
               <ListGroup variant='flush'>
