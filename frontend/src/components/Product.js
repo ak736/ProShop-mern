@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import Rating from './Rating'
+import '../index.css';
 
 const Product = ({ product }) => {
   return (
@@ -11,10 +12,9 @@ const Product = ({ product }) => {
       </Link>
 
       <Card.Body>
-      {/* style={{ textDecoration: 'none' }}  */}
-        <Link to={`/product/${product._id}`}>
+        <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
           <Card.Title as='div'>
-            <strong>{product.name}</strong>
+           <strong className='underline-hover'>{product.name}</strong>
           </Card.Title>
         </Link>
         <Card.Text as='div'>
