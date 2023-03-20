@@ -62,9 +62,10 @@ const CartScreen = () => {
                           addToCart(item.product, Number(e.target.value))
                         )
                       }
+                        /* <option key={x+1}>{x+1}</option> */
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1}>{x + 1}</option>
+                        <option key={x}>{x}</option>
                       ))}
                     </Form.Control>
                   </Col>
