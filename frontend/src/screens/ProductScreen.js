@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import { getProductById } from '../services/products/ProductDetailSlice'
 
 const ProductScreen = () => {
-  const [qty, setQty] = useState(0) //useState(1)
+  const [qty, setQty] = useState(1)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -90,12 +90,10 @@ const ProductScreen = () => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                          {/* <option key={x+1} value={x+1}>
-                                  {x+1} */}
                             {[...Array(productInfo.countInStock).keys()].map(
                               (x) => (
-                                <option key={x} value={x}>
-                                  {x}
+                                <option key={x+1} value={x+1}>
+                                  {x+1}
                                 </option>
                               )
                             )}
