@@ -9,11 +9,9 @@ import { getProductById } from '../services/products/ProductDetailSlice'
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1)
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  
   const productDetail = useSelector((state) => state.productDetail)
   const { productInfo, loading, error } = productDetail
 
