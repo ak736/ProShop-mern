@@ -12,6 +12,7 @@ import {
 } from '../services/cart/CartSlice'
 import { createOrder } from '../services/order/OrderCreateSlice'
 
+
 const PlaceorderScreen = () => {
   const cart = useSelector((state) => state.cart)
   const { itemsPrice, taxPrice, shippingPrice, totalPrice } = cart
@@ -24,6 +25,7 @@ const PlaceorderScreen = () => {
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
+
 
   const placeOrderHandler = () => {
     dispatch(
@@ -39,6 +41,7 @@ const PlaceorderScreen = () => {
     )
   }
 
+  
   useEffect(() => {
     dispatch(
       setItemsPrice(
