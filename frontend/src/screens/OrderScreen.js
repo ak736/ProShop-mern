@@ -12,9 +12,22 @@ const OrderScreen = () => {
   const { id } = useParams()
   const orderId = id
 
-  const orderDetails = useSelector((state) => state.orderDetails)
+  const orderDetails = useSelector((state) => state.orderDetail)
   const { order, loading, error } = orderDetails
 
+
+  let itemsPrice;
+
+  if (!loading) {
+    const addDecimals = (num) => {
+      return (Math.round(num * 100) / 100).toFixed(2);
+    };
+
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
+  }
+  
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
   }, [])
@@ -41,11 +54,11 @@ const OrderScreen = () => {
               {order.paymentMethod}
             </ListGroup.Item>
             <ListGroup.Item>
-              <h2>Order Items</h2>
-              {order?.orderItems?.length === 0 ? (
-                <Message>Order is empty</Message>
+            <h2>Order Items</h2>
+              {order.orderItems.length === 0 ? (
+                <Message>Your order is empty</Message>
               ) : (
-                <ListGroup variant='flush'>
+                <ListGroup variant="flush">
                   {order?.orderItems?.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
