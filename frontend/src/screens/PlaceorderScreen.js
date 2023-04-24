@@ -52,7 +52,7 @@ const PlaceorderScreen = () => {
     dispatch(setTaxPrice(addDecimals(Number((0.15 * itemsPrice).toFixed(2)))))
     dispatch(
       setTotalPrice(
-        Number(itemsPrice) + Number(shippingPrice + Number(taxPrice))
+        (Number(itemsPrice) + Number(shippingPrice + Number(taxPrice))).toFixed(1)
       )
     )
     // eslint-disable-next-line
