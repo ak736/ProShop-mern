@@ -12,40 +12,57 @@ const OrderScreen = () => {
   const { id } = useParams()
   const orderId = id
 
-  const orderDetails = useSelector((state) => state.orderDetail)
-  const { order, loading, error } = orderDetails
+  const orderDetail = useSelector((state) => state.orderDetail)
+  const { order, error, loading } = orderDetail
 
-
-  let itemsPrice;
+  let itemsPrice
 
   if (!loading) {
     const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
+      return (Math.round(num * 100) / 100).toFixed(2)
+    }
 
-    order.itemsPrice = addDecimals(
+    itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
+    )
   }
-  
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
   }, [])
 
-  return loading ? <Loader /> : error ? <Message variant='danger'>{error}
-  </Message>: <>
-    <h1>Order {order._id}</h1>
-    <Row>
+  return loading ? (
+    <Loader />
+  ) : error ? (
+    <Message variant='danger'>{error}</Message>
+  ) : (
+    <>
+      <h1>Order {order._id}</h1>
+      <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
+              <p>
+                <strong>Name: </strong> {order.user.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              </p>
               <p>
                 <strong>Address: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city},{' '}
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant='danger'>Not Delivered</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -54,11 +71,11 @@ const OrderScreen = () => {
               {order.paymentMethod}
             </ListGroup.Item>
             <ListGroup.Item>
-            <h2>Order Items</h2>
+              <h2>Order Items</h2>
               {order.orderItems.length === 0 ? (
                 <Message>Your order is empty</Message>
               ) : (
-                <ListGroup variant="flush">
+                <ListGroup variant='flush'>
                   {order?.orderItems?.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -100,7 +117,7 @@ const OrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col>${itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -125,7 +142,8 @@ const OrderScreen = () => {
           </Card>
         </Col>
       </Row>
-  </>
+    </>
+  )
 }
 
 export default OrderScreen
