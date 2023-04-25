@@ -7,8 +7,8 @@ import { Link, useParams } from 'react-router-dom'
 import { getOrderDetails } from '../services/order/OrderDetailSlice'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
-import { payOrder } from "../services/order/OrderPaySlice";
-import { deliverOrder, setReset } from "../services/order/OrderDeliverSlice";
+import { payOrder } from '../services/order/OrderPaySlice'
+import { deliverOrder, setReset } from '../services/order/OrderDeliverSlice'
 
 const OrderScreen = () => {
   const dispatch = useDispatch()
@@ -63,7 +63,7 @@ const OrderScreen = () => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay, order])
+  }, [dispatch, orderId, successPay])
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
