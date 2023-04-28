@@ -45,11 +45,11 @@ const PlaceorderScreen = () => {
   useEffect(() => {
     dispatch(
       setItemsPrice(
-        cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+        cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(1)
       )
     )
     dispatch(setShippingPrice(itemsPrice > 100 ? 0 : 100))
-    dispatch(setTaxPrice(addDecimals(Number((0.15 * itemsPrice).toFixed(2)))))
+    dispatch(setTaxPrice(addDecimals(Number((0.15 * itemsPrice).toFixed(1)))))
     dispatch(
       setTotalPrice(
         (Number(itemsPrice) + Number(shippingPrice + Number(taxPrice))).toFixed(1)
