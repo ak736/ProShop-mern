@@ -89,4 +89,4 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
 
 
-export { addOrderItems, getOrderById, updateOrderToPaid, get}
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders}
