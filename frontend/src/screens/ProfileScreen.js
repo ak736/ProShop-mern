@@ -9,7 +9,7 @@ import {
   getUserDetails,
   updateUserProfile,
 } from '../services/user/UserProfileSlice'
-import { listMyOrders } from '../services/order/OrderListSlice'
+import listMyOrders from '../services/order/OrderListSlice'
 
 const ProfileScreen = () => {
   const [name, setName] = useState('')
