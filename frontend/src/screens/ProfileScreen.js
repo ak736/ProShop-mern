@@ -1,106 +1,106 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Table } from "react-bootstrap";
-import {LinkContainer }from "react-router-bootstrap"
-import {  useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+import React, { useEffect, useState } from 'react'
+import { Form, Button, Row, Col, Table } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 import {
   getUserDetails,
   updateUserProfile,
-} from "../services/user/UserProfileSlice";
-import { listMyOrders } from "../services/order/OrderListSlice";
+} from '../services/user/UserProfileSlice'
+import { listMyOrders } from '../services/order/OrderListSlice'
 
 const ProfileScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const userDetails = useSelector((state) => state.userProfile);
-  const { loading, error, user, success } = userDetails;
+  const userDetails = useSelector((state) => state.userProfile)
+  const { loading, error, user, success } = userDetails
 
-  const orderList = useSelector((state) => state.orderList);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderList;
+  const orderList = useSelector((state) => state.orderList)
+  const { loading: loadingOrders, error: errorOrders, orders } = orderList
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   useEffect(() => {
     if (!userInfo) {
-      navigate("/login");
+      navigate('/login')
     } else {
-      dispatch(listMyOrders());
+      dispatch(listMyOrders())
       if (!user) {
-        dispatch(getUserDetails("profile"));
+        dispatch(getUserDetails('profile'))
       } else {
-        setName(user.name);
-        setEmail(user.email);
+        setName(userInfo.name)
+        setEmail(userInfo.email)
       }
     }
-  }, [navigate, userInfo, dispatch, user]);
+  }, [navigate, userInfo, dispatch, user])
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (password !== confirmPassword) {
-      setMessage("Password do not match");
+      setMessage('Password do not match')
     } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, password }));
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
-  };
+  }
 
   return (
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
+        {message && <Message variant='danger'>{message}</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
         {success && (
-          <Message variant="success">Profile Updated Successfully!!</Message>
+          <Message variant='success'>Profile Updated Successfully!!</Message>
         )}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="name">
+          <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              type="name"
-              placeholder="Enter name"
+              type='name'
+              placeholder='Enter name'
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="email">
+          <Form.Group controlId='email'>
             <Form.Label>Email Address</Form.Label>
             <Form.Control
-              type="email"
-              placeholder="Enter email"
+              type='email'
+              placeholder='Enter email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group controlId='password'>
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type="password"
-              placeholder="Enter password"
+              type='password'
+              placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId="confirmPassword">
+          <Form.Group controlId='confirmPassword'>
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
-              type="password"
-              placeholder="Confirm password"
+              type='password'
+              placeholder='Confirm password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Button type="submit" variant="primary">
+          <Button type='submit' variant='primary'>
             Update
           </Button>
         </Form>
@@ -110,9 +110,9 @@ const ProfileScreen = () => {
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
-          <Message varaint="danger">{errorOrders}</Message>
+          <Message varaint='danger'>{errorOrders}</Message>
         ) : (
-          <Table striped bordered hover responsive className="table-sm">
+          <Table striped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
                 <th>ID</th>
@@ -133,19 +133,19 @@ const ProfileScreen = () => {
                     {order?.isPaid ? (
                       order?.paidAt?.substring(0, 10)
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
                     )}
                   </td>
                   <td>
                     {order?.isDelivered ? (
                       order?.deliveredAt?.substring(0, 10)
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
                     )}
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant="light">Details</Button>
+                      <Button variant='light'>Details</Button>
                     </LinkContainer>
                   </td>
                 </tr>
@@ -155,7 +155,7 @@ const ProfileScreen = () => {
         )}
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default ProfileScreen;
+export default ProfileScreen
